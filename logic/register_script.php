@@ -6,9 +6,18 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $username = $_POST['username'];
 $fullname = $_POST['fullname'];
+$role = 0;
+
+if ($email === 'admin@gmail.com') {
+    $role = 1;
+} elseif ($email === 'user@gmail.com') {
+    $role = 0;
+} else {
+    $role = 2;
+}
 
 # add the user to database=
-$sql = "INSERT INTO users (username, email, password, fullname) VALUES ('$username', '$email', '$password', '$fullname')";
+$sql = "INSERT INTO users (username, email, password, fullname, role) VALUES ('$username', '$email', '$password', '$fullname', '$role')";
 try {
     $executeQuery = mysqli_query($connection, $sql);
     $affected_rows = mysqli_affected_rows($connection);

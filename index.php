@@ -40,14 +40,22 @@ if (isset($_POST['btn-login'])) {
 
     # find the user from  database and compare password for authentication 
     $result = UserDataAccess::findUserByEmail($connection, $email);
-
+    $role = 0;
     while ($row = mysqli_fetch_assoc($result)) {
-        var_dump($row['email']);
-        # if password is match, redirect to dashboard
-        if ($password === $row['password']) {
-            $_SESSION['email'] = $row['email'];
+        $role = $row['role'];
+        $_SESSION['email'] = $row['email'];
+
+        if ($role == 0) {
+            $_SESSION['role'] = $row['role'];
+            header('location: ./pages/userDashboard.php');
+        } else if ($role == 1) {
+            $_SESSION['role'] = $row['role'];
             header('location: ./pages/dashboard.php');
+        } else if ($role == 2) {
+            $_SESSION['role'] = $row['role'];
+            header('location: ./pages/guestDashboard.php');
         }
+
     }
 }
 
