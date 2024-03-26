@@ -18,6 +18,36 @@ if ($_SESSION['role'] == 1) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard</title>
         <link rel="stylesheet" href="../public/css/style.css">
+
+        <!-- Bootsrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootsrap@5.3.0-alpha/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.npm.chart.js"></script>
+        <!-- Pusher -->
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('7319cd748838c92b0aee', {
+                cluster: 'ap1'
+            });
+
+            var channel = pusher.subscribe('signUp');
+            channel.bind('newUser', function(data) {
+                // alert(JSON.stringify(data));
+                swal.fire({
+                    title: 'New User Signed-Up',
+                    text: data.email,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+            });
+        </script>
+
+
     </head>
 
     <body>

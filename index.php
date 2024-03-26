@@ -55,7 +55,6 @@ if (isset($_POST['btn-login'])) {
             $_SESSION['role'] = $row['role'];
             header('location: ./pages/guestDashboard.php');
         }
-
     }
 }
 

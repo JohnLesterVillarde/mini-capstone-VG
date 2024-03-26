@@ -1,4 +1,5 @@
 <?php
+require '../vendor/autoload.php';
 include 'connection.php';
 session_start();
 
@@ -23,6 +24,24 @@ try {
     $affected_rows = mysqli_affected_rows($connection);
     # redirect the user to index/login page if rows affected > 0  
     if ($affected_rows > 0) {
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            '7319cd748838c92b0aee',
+            '36510d3146f213bea9f2',
+            '1776063',
+            $options
+        );
+
+        $data['message'] = 'New user has been sucessfully added';
+        $pusher->trigger('signUp', 'newUser', [
+            "username" => $username,
+            "fullname" => $fullname,
+            'email' => $email
+        ]);
+        //redirect user to login        
         header("location: ../index.php");
     }
 } catch (\Throwable $th) {

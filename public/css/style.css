@@ -193,3 +193,7 @@ tr:nth-child(even) {
 	color: red;
 	font-weight: bold;
 }
+
+main {
+	padding: 20px 40px;
+}
